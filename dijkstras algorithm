@@ -1,0 +1,54 @@
+#include <iostream>
+#include <algorithm>
+#include<queue>
+
+using namespace std;
+int dist[9],visited[9];
+void dijkstras(int source,vector<pair<int,int> >v[]){
+    priority_queue<pair<int,int>,vector<pair<int,int> >,greater<pair<int,int> > >pq;
+    pair<int,int>p;
+    dist[source]=0;
+    pq.push(make_pair(source,dist[source]));
+    while(!pq.empty()){
+        p=pq.top();
+        pq.pop();
+        int curr=p.first;
+        visited[curr]=1;
+        for(int i=0;i<v[curr].size();i++){
+                if(visited[v[curr][i].first]==0){
+            if(dist[curr]+v[curr][i].second<dist[v[curr][i].first]){
+                    dist[v[curr][i].first]=dist[curr]+v[curr][i].second;
+            p=make_pair(v[curr][i].first,dist[v[curr][i].first]);
+            pq.push(p);
+
+            }
+        }
+        }
+    }
+}
+
+
+int main()
+{
+    int n,x,y,wt;
+
+    cout<<"Enter the number of nodes"<<endl;
+    cin>>n;
+    vector<pair<int,int> >v[9];
+    for(int i=0;i<n;i++){
+        cin>>x>>y>>wt;
+        v[x].push_back(make_pair(y,wt));
+         v[y].push_back(make_pair(x,wt));
+    }
+    for(int i=0;i<9;i++){
+        dist[i]=INT_MAX;
+        visited[i]=0;
+    }
+    dijkstras(0,v);
+    for(int i=0;i<9;i++){
+            cout<<"0 -> "<<i<<"="<<dist[i]<<endl;
+
+    }
+    return 0;
+
+}
