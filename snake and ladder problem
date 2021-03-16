@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int>findcoordinates(int x,int n){
+        vector<int>v;
+        int r=n-(x-1)/n-1;
+        int c=(x-1)%n;
+        if(r%2==n%2)
+            c=n-1-c;
+        v.push_back(r);
+        v.push_back(c);
+        return v;
+        
+    }
+    int snakesAndLadders(vector<vector<int>>& board) {
+        int n=board.size();
+        queue<int>q;
+        int visited[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++)
+                visited[i][j]=0;
+        }
+        
+        q.push(1);
+        visited[n-1][0]=1;
+        int steps=0;
+        while(!q.empty()){
+            int size=q.size();
+            for(int i=0;i<size;i++){
+            int k=q.front();
+            q.pop();
+                if(k==n*n)
+                    return steps;
+            for(int i=1;i<=6;i++){
+                int child=k+i;
+                if(child>n*n)
+                    break;
+                   
+                vector<int>coordinates=findcoordinates(child,n);
+                int r=coordinates[0];
+                int c=coordinates[1];
+                if(board[r][c]==-1&&visited[r][c]==0){
+                    q.push(child);
+                   
+                    }
+                if(board[r][c]!=-1&&visited[r][c]==0){
+                    q.push(board[r][c]);
+                }
+                visited[r][c]=1;
+            }
+            }
+            steps++;
+        }
+        return -1;
+        
+    }
+};
