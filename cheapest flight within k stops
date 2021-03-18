@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int dijkstras(int source,int dst,vector<pair<int,int> >v[],int dist[],int visited[],int K){
+        int stops=0;
+    priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>> >,greater<pair<int,pair<int,int>> > >pq;
+    pair<int,pair<int,int>>p;
+    dist[source]=0;
+    pq.push({source,{0,1}});
+    while(!pq.empty()){
+        
+        p=pq.top();
+        pq.pop();
+                
+ if(p.second.second <= K+2){
+     if(p.first == dst){
+              return p.second.first;
+          }
+  
+        for(pair q : v[p.first]){
+            if(visited[q.first] == false)
+                pq.push({q.first,{p.second.first + q.second,p.second.second + 1}});
+         }
+    }
+}
+        return -1;
+            }
+
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+        int directflight=-1;
+        int distance[n];
+        int visited[n];
+        for(int i=0;i<n;i++){
+            distance[i]=INT_MAX ;
+            visited[i]=0;
+        }
+        vector<pair<int,int> >v[n];
+        int m=flights.size();
+        for(int i=0;i<m;i++){
+            if(flights[i][0]==src&&flights[i][1]==dst)
+                directflight=flights[i][2];
+            v[flights[i][0]].push_back(make_pair(flights[i][1],flights[i][2]));
+        }
+        int res=dijkstras(src,dst,v,distance,visited,K);
+        return res;
+        
+        
+        
+        
+        
+    }
+};
