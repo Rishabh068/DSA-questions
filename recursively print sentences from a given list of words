@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <string>
+
+void solve(vector<string> op,vector<vector<string> >&v,int x){
+    if(x==v.size()){
+        for(int i=0;i<op.size();i++)
+        cout<< op[i];
+        cout<<endl;
+        return;
+    }
+    for(int i=0;i<v[x].size();i++){
+        vector<string> op1=op;
+        op1.push_back(v[x][i]);
+         op1.push_back(" ");
+         solve(op1,v,x+1);
+        
+    }
+}
+int main(){
+    vector<vector<string> >v={{"you", "we"},
+                        {"have", "are"},
+                        {"sleep", "eat", "drink"}};
+    vector<string> op;
+    solve(op,v,0);
+    return 0;
+}
