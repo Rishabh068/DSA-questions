@@ -1,0 +1,30 @@
+class Solution{
+    public:
+    string solve(string op,string ip){
+        if(ip.length()==0){
+            return op;
+        }
+        if(op[op.length()-1]!=ip[0]){
+            op.push_back(ip[0]);
+            ip.erase(ip.begin()+0);
+            
+        }
+        else{
+              ip.erase(ip.begin()+0);
+            
+        }
+        
+        string op1=solve(op,ip);
+        return op1;
+    }
+    string removeConsecutiveCharacter(string S)
+    {
+        // code here.
+        string op="";
+        string res;
+        op.push_back(S[0]);
+        S.erase(S.begin()+0);
+        res=solve(op,S);
+        return res;
+    }
+};
