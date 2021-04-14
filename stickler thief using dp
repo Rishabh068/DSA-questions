@@ -1,0 +1,19 @@
+
+class Solution{
+    public:
+
+    int dp[10001]={-1};
+    ll solve(ll arr[],int i){
+        if(i<=-1)
+        return 0;
+        if(dp[i]!=-1)
+        return dp[i];
+        ll op1=arr[i]+solve(arr,i-2);
+        ll op2=solve(arr,i-1);
+        return dp[i]=max(op1,op2);
+    }
+    ll FindMaxSum(ll arr[], ll n)
+    {
+        cout<<solve(arr,n-1)<<endl;
+    }
+};
