@@ -1,0 +1,28 @@
+class Solution{
+    public:
+    //Function to count subarrays with sum equal to 0.
+    ll findSubarray(vector<ll> arr, int n ) {
+        map<int,int>mp;
+        ll a[n];
+        ll cnt=0;
+        a[0]=arr[0];
+        if(a[0]==0)
+        cnt++;
+        mp[a[0]]++;
+        for(int i=1;i<n;i++){
+            a[i]=a[i-1]+arr[i];
+            if(a[i]==0)
+            cnt++;
+            map<int,int>::iterator it;
+             it=mp.find(a[i]);
+            if(it!=mp.end()){
+                cnt+=it->second;
+            }
+            mp[a[i]]++;
+            
+         
+        }
+        return cnt;
+        
+    }
+};
