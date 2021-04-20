@@ -1,0 +1,29 @@
+int dp[1001][1001];
+      int solve(string s,string t,int m,int n){
+          if(m==-1)
+          return n+1;
+          if(n==-1)
+          return m+1;
+          if(dp[n][m]!=-1)
+          return dp[n][m];
+          if(s[m]==t[n])
+          return dp[n][m]= solve(s,t,m-1,n-1);
+          else{
+              int op1=solve(s,t,m-1,n-1);
+              int op2=solve(s,t,m,n-1);
+              int op3=solve(s,t,m-1,n);
+              return dp[n][m]= 1+min(op1,min(op2,op3));
+          }
+      }
+    int editDistance(string s, string t) {
+        memset(dp,-1,sizeof(dp));
+       int m=s.length();
+       int n=t.length();
+       int ans=solve(s,t,m-1,n-1);
+       return ans;
+        
+        
+        
+        
+    }
+};
