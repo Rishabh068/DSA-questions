@@ -1,0 +1,22 @@
+int findPlatform(int arr[], int dep[], int n)
+    {
+    	// Your code here
+    	 priority_queue<int, vector<int>, 
+                                greater<int> > g;
+                                sort(arr,arr+n);
+                                sort(dep,dep+n);
+        int platformcnt=1;
+        g.push(dep[0]);
+        for(int i=1;i<n;i++){
+            if(arr[i]>g.top()){
+                g.pop();
+                g.push(dep[i]);
+            }
+            else{
+                platformcnt++;
+                g.push(dep[i]);
+            }
+        }
+        return platformcnt;
+        
+        
