@@ -1,0 +1,38 @@
+class Solution
+{
+    public:
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    int dp[501][501];
+    int solve(int e,int f){
+        if(f==0||f==1||e==1)
+        return dp[e][f]=f;
+        int min=INT_MAX;
+        for(int k=1;k<=f;k++){
+            int low,high;
+            if(dp[e-1][k-1]!=-1)
+             low=dp[e-1][k-1];
+            else{
+                low=solve(e-1,k-1);
+                dp[e-1][k-1]=low;
+            }
+            if(dp[e][f-k]!=-1)
+            high=dp[e][f-k];
+            else{
+                high=solve(e,f-k);
+                dp[e][f-k]=high;
+            }
+            int temp=1+max(low,high);
+            if(temp<min)
+            min=temp;
+        }
+        return dp[e][f]=min;
+    }
+    int eggDrop(int n, int k) 
+    {
+        memset(dp,-1,sizeof(dp));
+        // your code here
+        int ans=solve(n,k);
+        return ans;
+    }
+};
