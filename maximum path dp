@@ -1,0 +1,10 @@
+if(i>=n||j>=n||j<0)
+        return 0;
+        
+        if(dp[i][j]!=-1)
+        return dp[i][j];
+        
+        int t=max(solve(Matrix,n,i+1,j-1),solve(Matrix,n,i+1,j+1));
+       
+        
+        return dp[i][j]=Matrix[i][j]+max(solve(Matrix,n,i+1,j),t);
