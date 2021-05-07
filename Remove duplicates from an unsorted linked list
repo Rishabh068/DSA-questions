@@ -1,0 +1,32 @@
+class Solution
+{
+    public:
+    //Function to remove duplicates from unsorted linked list.
+    Node * removeDuplicates( Node *head) 
+    {
+        map<int,int>mp;
+        
+     Node *prev=head;
+     int flag=0;
+     mp[head->data]++;
+     Node *nex=head->next;
+     while(nex!=NULL){
+         auto it=mp.find(nex->data);
+         if(it!=mp.end()){
+             nex=nex->next;
+         }
+         else{
+             flag=1;
+             mp[nex->data]++;
+             prev->next=nex;
+             prev=nex;
+             nex=nex->next;
+         }
+         
+     }
+     prev->next=NULL;
+     if(flag==0)
+     head->next=NULL;
+     return head;
+    }
+};
