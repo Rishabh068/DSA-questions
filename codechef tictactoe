@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+int main()
+{
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        ll xcount = 0, ocount =0, sp= 0;
+        char a[3][3];
+        for(ll i=0;i<3;i++)
+        {
+            for(ll j=0;j<3;j++)
+            {
+                cin>>a[i][j];
+                if(a[i][j]=='X')xcount++;
+                if(a[i][j]=='O')ocount++;
+                if(a[i][j]=='_')sp++;
+            }
+        }
+        ll xwins = 0, owins = 0;
+        if(a[0][0] == 'X' && a[1][0] == 'X' && a[2][0] == 'X')xwins=1;
+        if(a[0][1] == 'X' && a[1][1] == 'X' && a[2][1] == 'X')xwins=1;
+        if(a[0][2] == 'X' && a[1][2] == 'X' && a[2][2] == 'X')xwins=1;
+        if(a[0][0] == 'X' && a[1][1] == 'X' && a[2][2] == 'X')xwins=1;
+        if(a[0][0] == 'X' && a[0][1] == 'X' && a[0][2] == 'X')xwins=1;
+        if(a[1][0] == 'X' && a[1][1] == 'X' && a[1][2] == 'X')xwins=1;
+        if(a[2][0] == 'X' && a[2][1] == 'X' && a[2][2] == 'X')xwins=1;
+        if(a[0][2] == 'X' && a[1][1] == 'X' && a[2][0] == 'X')xwins=1;
+        
+        if(a[0][0] == 'O' && a[1][0] == 'O' && a[2][0] == 'O')owins++;
+        if(a[0][1] == 'O' && a[1][1] == 'O' && a[2][1] == 'O')owins++;
+        if(a[0][2] == 'O' && a[1][2] == 'O' && a[2][2] == 'O')owins++;
+        if(a[0][0] == 'O' && a[1][1] == 'O' && a[2][2] == 'O')owins++;
+        if(a[0][0] == 'O' && a[0][1] == 'O' && a[0][2] == 'O')owins++;
+        if(a[1][0] == 'O' && a[1][1] == 'O' && a[1][2] == 'O')owins++;
+        if(a[2][0] == 'O' && a[2][1] == 'O' && a[2][2] == 'O')owins++;
+        if(a[0][2] == 'O' && a[1][1] == 'O' && a[2][0] == 'O')owins++;
+
+       if(xwins==1&&owins==1||xcount-ocount<0||xcount-ocount>1)
+       cout<<3<<endl;
+       else if(xwins==0&&owins==0&&sp>0)cout<<2<<endl;
+       else if(xwins==0&&owins==0&&sp==0)cout<<1<<endl;
+       else if(xwins==0&&owins==1&&ocount==xcount)cout<<1<<endl;
+       else if(xwins==1&&owins==0&&xcount>ocount)cout<<1<<endl;
+       else if(xcount==0&&ocount==0&&sp==9)cout<<2<<endl;
+       else{
+           cout<<3<<endl;
+       }
+    }
+    return 0;
+}
