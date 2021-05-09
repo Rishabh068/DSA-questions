@@ -1,0 +1,63 @@
+class Solution
+{
+    public:
+    
+    
+    Node* addOne(Node *head) 
+    {
+        Node* current = head;
+        Node *prev = NULL, *next = NULL,*back=NULL;
+ 
+        while (current != NULL) {
+            // Store next
+            next = current->next;
+ 
+            // Reverse current node's pointer
+            current->next = prev;
+ 
+            // Move pointers one position ahead.
+            prev = current;
+            current = next;
+        }
+        head = prev;
+        Node *temp=head;
+        
+   // }
+       int carry=0;
+       do{
+           if(temp->data==9){
+              temp->data=0;
+               carry=1;
+           }
+           else{
+               temp->data=temp->data+1;
+               carry=0;
+           }
+           back=temp;
+           temp=temp->next;
+           
+       }while(temp!=NULL&&carry!=0);
+       if(carry){
+           Node *newnode=(Node *)malloc(sizeof(newnode));
+           newnode->data=1;
+           newnode->next=NULL;
+           back->next=newnode;
+       }
+       current=head;
+       next=NULL;
+       prev=NULL;
+       while (current != NULL) {
+            // Store next
+            next = current->next;
+ 
+            // Reverse current node's pointer
+            current->next = prev;
+ 
+            // Move pointers one position ahead.
+            prev = current;
+            current = next;
+        }
+        return prev;
+       
+    }
+};
