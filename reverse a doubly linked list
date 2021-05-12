@@ -1,0 +1,22 @@
+struct Node* reverseDLL(struct Node * head)
+{
+    if(head==NULL||head->next==NULL)
+    return head;
+   struct Node *curr=head;
+    while(curr->next!=NULL){
+        curr=curr->next;
+    }
+    head=curr;
+    curr->next=curr->prev;
+    curr->prev=NULL;
+    curr=curr->next;
+    while(curr->prev!=NULL){
+        struct Node *temp=curr->next;
+        curr->next=curr->prev;
+        curr->prev=temp;
+        curr=curr->next;
+    }
+    curr->prev=curr->next;
+    curr->next=NULL;
+    return head;
+    
