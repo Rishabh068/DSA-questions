@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int dp[10001];
+    int solve(vector<int>& cost,int i){
+        if(i>=cost.size()){
+            return 0;
+        }
+        if(dp[i]!=-1)
+            return dp[i];
+        return dp[i]= cost[i]+min(solve(cost,i+1),solve(cost,i+2));
+        
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        memset(dp,-1,sizeof(dp));
+        int ground=solve(cost,0);
+         memset(dp,-1,sizeof(dp));
+        int first=solve(cost,1);
+        return min(ground,first);
+        
+        
+    }
+};
