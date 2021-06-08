@@ -1,0 +1,11 @@
+Node* mirror(Node* root)
+if(root){
+mirror(root->left);
+mirror(root->right);
+#swap now at the end
+temp=root->left;
+root->left=root-right;
+root->right=temp;
+}
+return root;
+}
