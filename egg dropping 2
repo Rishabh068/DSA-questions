@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int dp[1001][1001];
+    int solve(int e,int n){
+        if(e==1||n==1||n==0)
+            return n;
+        if(dp[e][n]!=-1)
+            return dp[e][n];
+        int ans=INT_MAX;
+        for(int k=1;k<=n;k++){
+            int low,high;
+            if(dp[e][n-k]!=-1){
+                low=dp[e][n-k];
+            }
+            else{
+                low=solve(e,n-k);
+                dp[e][n-k]=low;  
+            }
+            if(dp[e-1][k-1]!=-1){
+                high=dp[e-1][k-1];
+            }
+            else{
+                high=solve(e-1,k-1);
+                dp[e-1][k-1]=high;  
+            }
+            int temp=1+max(low,high);
+            ans=min(ans,temp);
+        }
+        return  dp[e][n]=ans;
+    }
+    int twoEggDrop(int n) {
+        memset(dp,-1,sizeof(dp));
+      
+        int solution=solve(2,n);
+        return solution;
+    }
+};
