@@ -1,0 +1,20 @@
+public int maxamt(int[] hi,int[] li,int i,int prev,int[][] dp){
+        if(i==hi.length){
+            return 0;
+        }
+        if(dp[i][prev]!=-1)
+        {
+            return dp[i][prev];
+        }
+        if(prev==0){
+            int high=hi[i]+maxamt(hi,li,i+1,1,dp);
+            int low=li[i]+maxamt(hi,li,i+1,1,dp);
+            int not=maxamt(hi,li,i+1,0,dp);
+            return dp[i][prev]=Math.max(high,Math.max(low,not));
+        }
+        else{
+            int low=li[i]+maxamt(hi,li,i+1,1,dp);
+            int not=maxamt(hi,li,i+1,0,dp);
+            return dp[i][prev]=Math.max(low,not);
+        }
+    }
