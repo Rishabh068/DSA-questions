@@ -1,0 +1,30 @@
+class Solution
+{
+    public:
+    //Function to find the maximum number of activities that can
+    //be performed by a single person.
+    int activitySelection(vector<int> start, vector<int> end, int n)
+    {
+       int currday=0;
+       vector<pair<int,int>>tasks;
+       for(int i=0;i<start.size();i++){
+           tasks.push_back(make_pair(end[i],i));
+           
+       }
+       
+      
+       sort(tasks.begin(),tasks.end());
+       int i=0,count=0;
+      while(i<start.size()){
+          if(currday<start[tasks[i].second]){
+              count++;
+              currday=tasks[i].first;
+              i++;
+          }
+          else{
+              i++;
+          }
+      }
+      return count;
+    }
+};
