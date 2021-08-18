@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        bool ans=false;
+        int i=0;
+        while(i<n){
+            if(matrix[i][m-1]==target)
+                return true;
+            else if(matrix[i][m-1]>target){
+                ans=binary_search(matrix[i].begin(),matrix[i].end(),target);
+                return ans;
+            }
+            else
+                i++;
+        }
+        return ans;
+        
+        
+    }
+};
