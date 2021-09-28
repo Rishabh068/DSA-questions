@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int dp[1000000];
+    int solve(vector<int>&nums,int pos){
+        if(pos==nums.size()-1)
+            return 0;
+        if(pos>nums.size()-1)
+            return 1e6;
+        if(dp[pos]!=-1)
+            return dp[pos];
+        
+        int ans=1e6;
+        for(int k=1;k<=nums[pos];k++){
+           ans=min(ans,1+solve(nums,pos+k));
+        }
+        return dp[pos]=ans;
+        
+    }
+    int jump(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        int ans=solve(nums,0);
+        return ans;
+        
+    }
+};
