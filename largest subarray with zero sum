@@ -1,0 +1,24 @@
+
+class Solution{
+    public:
+    int maxLen(vector<int>&A, int n)
+    {   
+        // Your code here
+        map<long long int,int>mp;
+        int ans=0;
+       long long int temp=0;
+        for(int i=0;i<n;i++){
+            temp+=A[i];
+            if(temp==0||mp.find(temp)!=mp.end()){
+                if(temp==0)
+                ans=i+1;
+                else
+                ans=max(ans,i-mp[temp]);
+            }
+            else{
+                mp[temp]=i;
+            }
+        }
+        return ans;
+    }
+};
