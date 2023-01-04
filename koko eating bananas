@@ -1,0 +1,38 @@
+class Solution {
+public:
+bool helper(int x,vector<int> &vec,int h){
+    int temp=0;
+    for(int i=0;i<vec.size();i++){
+        if(vec[i]<=x){
+            temp++;
+        }
+        else{
+            temp+=vec[i]/x;
+            if(vec[i]%x!=0)
+            temp++;
+        }
+    }
+    if(temp<=h)
+    return true;
+    else
+    return false;
+}
+    int minEatingSpeed(vector<int>& piles, int h) {
+       long long int low=1,high=0,ans=-1;
+        for(int i=0;i<piles.size();i++){
+            high+=piles[i];
+        }
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(helper(mid,piles,h)){
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            low=mid+1;
+        }
+        return ans;
+
+        
+    }
+};
