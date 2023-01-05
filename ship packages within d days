@@ -1,0 +1,37 @@
+class Solution {
+public:
+bool helper(long long int mid,vector<int>&weights,int days){
+    int currentdays=0;
+    int capacity=0;
+    for(int i=0;i<weights.size();i++){
+        if(weights[i]>mid)
+        return false;
+        capacity+=weights[i];
+        if(capacity>mid){
+            currentdays++;
+            capacity=weights[i];
+        }
+    }
+    if(capacity)
+    currentdays++;
+    if(currentdays<=days)
+    return true;
+    else
+    return false;
+}
+    int shipWithinDays(vector<int>& weights, int days) {
+        long long int low=1,high=1e18,ans=-1;
+        
+        while(low<=high){
+            long long int mid=low+(high-low)/2;
+            if(helper(mid,weights,days)){
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            low=mid+1;
+        }
+        return ans;
+        
+    }
+};
