@@ -1,0 +1,39 @@
+class Solution {
+public:
+ bool helper(vector<int>&nums,int x,int k){
+     int temp=0;
+     for(int i=0;i<nums.size();i++){
+         if(nums[i]%x==0){
+             temp+=nums[i]/x;
+         }
+         else{
+             temp+=nums[i]/x;
+             temp++;
+         }
+     }
+     if(temp<=k)
+     return true;
+     else
+     return false;
+ }
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        long long int allsum=0;
+        for(int i=0;i<nums.size();i++){
+            allsum+=nums[i];
+        }
+        if(allsum<=threshold)
+        return 1;
+        long long int low=1,high=1e18,ans=-1;
+        while(low<=high){
+            long long int mid=low+(high-low)/2;
+            if(helper(nums,mid,threshold)){
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            low=mid+1;
+        }
+        return ans;
+        
+    }
+};
