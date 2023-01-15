@@ -1,0 +1,55 @@
+ bool isPossible(vector<int>& stations, int k, double mid){
+
+        int count = 0;
+
+        for(int i = 1; i < stations.size(); i++){
+
+            int difference = stations[i] - stations[i - 1];
+
+            double val = (double)difference/mid;
+
+            count += (int(val));
+
+        }
+
+        if(count <= k) return true;
+
+        return false;
+
+    }
+
+    double findSmallestMaxDist(vector<int> &stations, int k){
+
+      // Code here
+
+      int x = stations.size() - 1;
+
+      double low = 0;
+
+      double high = stations[x] - stations[0];
+
+      double result = high;
+
+      while(high - low > 1e-6){
+
+          double mid = low + (high - low)/2;
+
+          if(isPossible(stations,k,mid)){
+
+              result = mid;
+
+              high = mid;
+
+          } 
+
+          else{
+
+              low = mid;
+
+          }
+
+      }
+
+      return result;
+
+    }
