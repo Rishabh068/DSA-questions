@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        map<string,int>mp;
+        vector<string>Ans;
+        int i=0;
+        for(int j=0;j<s.length();j++){
+            if(j-i+1<10){
+                //do nothing
+            }
+            else{
+                string temp=s.substr(i,j-i+1);
+                mp[temp]++;
+                i++;
+
+            }
+        }
+        for(auto it:mp){
+            if(it.second>1)
+            Ans.push_back(it.first);
+        }
+        return Ans;
+        
+    }
+};
