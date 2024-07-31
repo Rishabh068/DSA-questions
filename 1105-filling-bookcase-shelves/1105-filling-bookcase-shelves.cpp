@@ -17,4 +17,5 @@ int minHeightShelves(vector<vector<int>>& books, int shelf_width)
     memo.resize(books.size(),vector<int>(shelf_width+1,-1));
     return dp(0,books,shelf_width,0,0);
 }
+    
 };
