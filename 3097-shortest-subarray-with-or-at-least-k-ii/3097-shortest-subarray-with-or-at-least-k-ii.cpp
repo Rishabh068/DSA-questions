@@ -1,21 +1,50 @@
 class Solution {
 public:
-    int minimumSubarrayLength(vector<int>& nums, int k) {
-        int cnt[30] = {}, cur = 0, res = INT_MAX;
-    for (int i = 0, j = 0; i < nums.size(); ++i) {
-        for (int b = 0; b < 30; ++b)
-            if ((1 << b) & nums[i])
-                if (++cnt[b] == 1)
-                    cur += (1 << b);
-        while (cur >= k && j <= i) {
-            res = min(res, i - j + 1);
-            for (int b = 0; b < 30; ++b)
-                if ((1 << b) & nums[j])
-                    if (--cnt[b] == 0)
-                        cur -= (1 << b);
-            ++j;
+    int add(vector<int>& nums,int idx,vector<int>&bits){
+        int curror=0;
+        for(int i=0;i<32;i++){
+            if(nums[idx]&(1<<i)){
+                bits[i]++; 
+            }
+            if(bits[i]>0)
+                 curror|=(1<<i);
         }
+        return curror;
     }
-    return res == INT_MAX ? -1 : res;
+    int remove(vector<int>& nums,int idx,vector<int>&bits){
+         int curror=0;
+        for(int i=0;i<32;i++){
+            if(nums[idx]&(1<<i)){
+                bits[i]--;
+               if(bits[i]<0)
+              bits[i]=0;
+                
+            }
+            if(bits[i]!=0)
+              curror|=(1<<i);   
+        }
+        return curror;
+    }
+    
+    int minimumSubarrayLength(vector<int>& nums, int k) {
+        vector<int>bits(32,0);
+        int j=0,i=0;
+        int ans=INT_MAX;
+        while(j<nums.size()){
+            int curror=add(nums,j,bits);
+            while(curror>=k&&i<=j){
+                
+                ans=min(ans,j-i+1);
+                curror=remove(nums,i,bits);
+               
+                i++;
+                
+            }
+            j++;
+            
+        }
+        if(ans==INT_MAX)
+            return -1;
+        return ans;
     }
 };
